@@ -39,18 +39,15 @@
     async function run() {
         await faceapi.loadFaceLandmarkModel('weights/')
         landmarks = await faceapi.detectLandmarks(currentImg)
-        $('#loader').hide()
+
         redraw()
     }
 
     async function uploadImage() {
 
         const imgFile = document.getElementById('myFileUpload').files[0]
-        // create an HTMLImageElement from a Blob
-        await faceapi.loadFaceLandmarkModel('weights/')
         currentImg = await faceapi.bufferToImage(imgFile)
         landmarks = await faceapi.detectLandmarks(currentImg)
-        // document.getElementById('myImg').src = img.src
         redraw()
     }
 
@@ -63,9 +60,13 @@
 
     });
 
+    async function loadLocalImg(imgPath) {
+        currentImg = await faceapi.fetchImage(imgPath)
+    }
+
     $(document).ready(function() {
         // Set default image
-        currentImg = await faceapi.fetchImage('girl.png')
+        loadLocalImg('girl.png')
         run()
     })
 
