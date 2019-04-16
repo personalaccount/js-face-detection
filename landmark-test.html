@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="dist/face-api.js"></script>
+    <script src="public/js/commons.js"></script>
+    <script src="public/js/bbt.js"></script>
+    <link rel="stylesheet" href="public/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+</head>
+<body>
+    <div>
+        <div class="progress" id="loader">
+            <div class="indeterminate"></div>
+        </div>
+        <div>
+            <img id="myImg" src="">
+            <input id="myFileUpload" type="file" onchange="uploadImage()" accept=".jpg, .jpeg, .png">
+        </div>
+        <div class="center-content">
+            <div id="faceContainer"></div>
+        </div>
+    </div>
+
+
+<script>
+    let drawLines = true
+    let landmarks
+    let currentImg
+
+    function onChangeDrawLines(e) {
+        redraw()
+    }
+
+    function test() {
+        console.log('test');
+    }
+
+    function redraw() {
+        const canvas = faceapi.createCanvasFromMedia(currentImg)
+        $('#faceContainer').empty()
+        $('#faceContainer').append(canvas)
+        faceapi.drawLandmarks(canvas, landmarks, { lineWidth: drawLines ? 2 : 4, drawLines })
+    }
+
+    async function onSelectionChanged(uri) {
+        currentImg = await faceapi.fetchImage(uri)
+        landmarks = await faceapi.detectLandmarks(currentImg)
+        redraw()
+    }
+
+    async function run() {
+        await faceapi.loadFaceLandmarkModel('weights/')
+        currentImg = await faceapi.fetchImage('girl.png')
+        landmarks = await faceapi.detectLandmarks(currentImg)
+        $('#loader').hide()
+        redraw()
+    }
+
+    async function uploadImage() {
+
+        const imgFile = document.getElementById('myFileUpload').files[0]
+        // create an HTMLImageElement from a Blob
+        await faceapi.loadFaceLandmarkModel('weights/')
+        currentImg = await faceapi.bufferToImage(imgFile)
+        landmarks = await faceapi.detectLandmarks(currentImg)
+        // document.getElementById('myImg').src = img.src
+        redraw()
+    }
+
+
+    $("#myFileUpload").change(function() {
+        uploadImage(this);
+    });
+
+    $("#fetchImage").click(function() {
+
+    });
+
+    $(document).ready(function() {
+        run()
+    })
+
+</script>
+
+</body>
+</html>
