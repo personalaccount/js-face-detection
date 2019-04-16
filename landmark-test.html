@@ -42,7 +42,6 @@
 
     async function run() {
         await faceapi.loadFaceLandmarkModel('weights/')
-        currentImg = await faceapi.fetchImage('girl.png')
         landmarks = await faceapi.detectLandmarks(currentImg)
         $('#loader').hide()
         redraw()
@@ -69,6 +68,8 @@
     });
 
     $(document).ready(function() {
+        // Set default image
+        currentImg = await faceapi.fetchImage('girl.png')
         run()
     })
 
