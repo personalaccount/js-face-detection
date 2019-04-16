@@ -29,10 +29,6 @@
     let landmarks
     let currentImg
 
-    function onChangeDrawLines(e) {
-        redraw()
-    }
-
     function redraw() {
         const canvas = faceapi.createCanvasFromMedia(currentImg)
         $('#faceContainer').empty()
