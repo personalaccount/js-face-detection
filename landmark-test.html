@@ -44,12 +44,6 @@
         faceapi.drawLandmarks(canvas, landmarks, { lineWidth: drawLines ? 2 : 4, drawLines })
     }
 
-    async function onSelectionChanged(uri) {
-        currentImg = await faceapi.fetchImage(uri)
-        landmarks = await faceapi.detectLandmarks(currentImg)
-        redraw()
-    }
-
     async function run() {
         await faceapi.loadFaceLandmarkModel('weights/')
         currentImg = await faceapi.fetchImage('girl.png')
