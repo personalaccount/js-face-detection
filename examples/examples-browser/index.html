@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lashes tryout app</title>
+    <script src="https://github.com/justadudewhohacks/face-api.js/tree/master/dist/face-api.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://unpkg.com/konva@3.2.4/konva.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<style>
+    html, body {
+        height: 100%;
+        width: 100%;
+    }
+
+    .h-85 {
+        height: 85%;
+    }
+
+    #container {
+        /*background: url('img/girl1.jpg');*/
+        /*background-size: contain;*/
+        /*background-position: center;*/
+        /*background-repeat: no-repeat;*/
+    }
+
+</style>
+<body class="bg-light">
+<div class="container-fluid h-100">
+    <div class="row justify-content-center h-75 position-relative">
+        <div class="col-6 py-4 bg-white rounded shadow-sm">
+            <h3 class="text-center">Lashique virtual demo</h3>
+            <div id="container" class="mt-3 w-100 h-85">
+                <img src="img/girl1.jpg" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+    async function loadModels() {
+        await faceapi.loadSsdMobilenetv1Model('models');
+        console.log(faceapi.nets);
+    }
+
+    loadModels();
+
+</script>
+</html>
